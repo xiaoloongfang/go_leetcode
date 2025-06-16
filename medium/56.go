@@ -12,16 +12,19 @@ func merge(intervals [][]int) [][]int {
 		}
 	})
 
-	res := make([]int, 0)
+	res := make([][]int, 0)
 
 	left, right := intervals[0][0], intervals[0][1]
 	for _, interval := range intervals {
-		if interval[0] < right {
+		if interval[0] <= right {
 			right = max(right, interval[1])
 		} else {
-			res = append(res, [2]int{left, right})
+			res = append(res, []int{left, right})
+			left, right = interval[0], interval[1]
 		}
 	}
+
+	res = append(res, []int{left, right})
 
 	return res
 
